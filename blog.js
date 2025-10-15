@@ -1,5 +1,4 @@
-import { triggerAsyncId } from "async_hooks";
-import chalk from "chalk";
+const chalk = require("chalk");
 
 //todo Creazione di una variabile che possa recuperare express
 const express = require("express");
@@ -16,10 +15,18 @@ server.get("/", (req, res) => {
 });
 
 //todo Importo l'array che l'ho messo in un altro file e l'ho esportato come modulo
-const posts = require("./posts");
+const posts = require("./posts.js");
 
 //todo Creo la rotta bacheca
 server.get("/bacheca", (req, res) => {
     res.json({posts});
+});
+
+//todo Configuriamo gli asset statici sull’applicazione in modo che si possano visualizzare le immagini associate ad ogni post.
+server.use(express.static("public"));
+
+//todo Avvio il server sulla porta 3000
+server.listen(PORT, () => {
+  console.log(chalk.blue(`Server in ascolto sulla porta ${PORT}`));
 });
 
